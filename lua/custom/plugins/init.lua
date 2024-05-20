@@ -2,4 +2,23 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+  {
+    'neovim/nvim-lspconfig',
+    opts = {
+      servers = {
+        dartls = {},
+      },
+    },
+  },
+
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      -- 'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = true,
+  },
+}
