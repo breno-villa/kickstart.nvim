@@ -286,8 +286,10 @@ require('lazy').setup({
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
+        -- ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
+        ['<leader>t'] = { name = '[T]est', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+        ['<leader>l'] = { name = '[L]azy Git', _ = 'which_key_ignore' },
       }
       -- visual mode
       require('which-key').register({
@@ -784,11 +786,64 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
+  },
+  {
+    'catppuccin/nvim',
+    name = "catppuccin",
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'catppuccin-mocha'
+    end,
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    init = function()
+      require('lualine').setup {
+        options = {
+          theme = "catppuccin",
+          -- section_separators = { left = '', right = '' },
+          -- component_separators = { left = '', right = '' },
+          -- sections = {
+          --   lualine_c = {
+          --     'mode',
+          --     'filename',
+          --     show_filename_only = false, 
+          --   },
+          -- },
+          -- sections = {
+          --   lualine_a = {},
+          --   lualine_b = {'branch', 'diff', 'diagnostics'},
+          --   lualine_c = {'filename', 'mode'},
+          --   lualine_x = {'encoding', 'fileformat', 'filetype'},
+          --   lualine_y = {'progress'},
+          --   lualine_z = {'location'}
+          -- },
+        }
+      }
+    end,
+  },
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
   },
 
   -- Highlight todo, notes, etc in comments
