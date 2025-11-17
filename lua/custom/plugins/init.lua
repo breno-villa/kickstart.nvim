@@ -22,51 +22,95 @@ return {
     config = true,
   },
   {
-    "kdheepak/lazygit.nvim",
+    'kdheepak/lazygit.nvim',
     lazy = true,
     cmd = {
-      "LazyGit",
-      "LazyGitConfig",
-      "LazyGitCurrentFile",
-      "LazyGitFilter",
-      "LazyGitFilterCurrentFile",
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
     },
     -- optional for floating window border decoration
     dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/plenary.nvim',
     },
     -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
     keys = {
-      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
     config = function()
-      require("telescope").load_extension("lazygit")
+      require('telescope').load_extension 'lazygit'
     end,
   },
   {
-    "nvim-neotest/neotest",
+    'mikavilpas/yazi.nvim',
+    version = '*', -- use the latest stable version
+    event = 'VeryLazy',
     dependencies = {
-      "nvim-neotest/nvim-nio",
-      "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      { 'nvim-lua/plenary.nvim', lazy = true },
+    },
+    keys = {
+      -- 👇 in this section, choose your own keymappings!
+      {
+        '<leader>yc',
+        mode = { 'n', 'v' },
+        '<cmd>Yazi<cr>',
+        desc = 'Open current file',
+      },
+      {
+        -- Open in the current working directory
+        '<leader>yw',
+        '<cmd>Yazi cwd<cr>',
+        desc = 'Open working directory',
+      },
+      {
+        -- '<c-up>',
+        '<leader>yr',
+        '<cmd>Yazi toggle<cr>',
+        desc = 'Resume last session',
+      },
+    },
+    ---@type YaziConfig | {}
+    opts = {
+      -- if you want to open yazi instead of netrw, see below for more info
+      open_for_directories = false,
+      keymaps = {
+        show_help = '<f1>',
+      },
+    },
+    -- 👇 if you use `open_for_directories=true`, this is recommended
+    init = function()
+      -- mark netrw as loaded so it's not loaded at all.
+      --
+      -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
+      vim.g.loaded_netrwPlugin = 1
+    end,
+  },
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-neotest/nvim-nio',
+      'nvim-lua/plenary.nvim',
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-treesitter/nvim-treesitter',
       'sidlatau/neotest-dart',
     },
     config = function()
-      require('neotest').setup({
+      require('neotest').setup {
         adapters = {
-          require('neotest-dart') {
-               command = 'flutter', -- Command being used to run tests. Defaults to `flutter`
-                                    -- Change it to `fvm flutter` if using FVM
-                                    -- change it to `dart` for Dart only tests
-               use_lsp = true,      -- When set Flutter outline information is used when constructing test name.
-               -- Useful when using custom test names with @isTest annotation
-               custom_test_method_names = {},
-          }
-        }
-      })
+          require 'neotest-dart' {
+            command = 'flutter', -- Command being used to run tests. Defaults to `flutter`
+            -- Change it to `fvm flutter` if using FVM
+            -- change it to `dart` for Dart only tests
+            use_lsp = true, -- When set Flutter outline information is used when constructing test name.
+            -- Useful when using custom test names with @isTest annotation
+            custom_test_method_names = {},
+          },
+        },
+      }
 
       vim.keymap.set('n', '<leader>tr', function()
         require('neotest').run.run()
@@ -77,7 +121,7 @@ return {
       end, { desc = 'Debug closest test' })
 
       vim.keymap.set('n', '<leader>ta', function()
-        require('neotest').run.run({suite = true})
+        require('neotest').run.run { suite = true }
       end, { desc = 'Run all tests' })
 
       vim.keymap.set('n', '<leader>to', function()
@@ -98,4 +142,3 @@ return {
     end,
   },
 }
- 

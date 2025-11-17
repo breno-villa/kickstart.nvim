@@ -309,6 +309,7 @@ require('lazy').setup({
         { '<leader>t', group = '[T]est' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>l', group = '[L]azy Git' },
+        { '<leader>y', group = '[Y]azy' },
       }
       -- -- visual mode
       -- require('which-key').register({
