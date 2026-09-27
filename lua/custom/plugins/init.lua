@@ -2,15 +2,15 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+
+---@module 'lazy'
+---@type LazySpec
 return {
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        dartls = {},
-      },
-    },
-  },
+  -- NOTE: The Dart LSP (`dartls`) is started by `flutter-tools.nvim` (see below),
+  -- so it is not configured through the `servers` table in `init.lua`.
+  -- To add another server with the native API, use:
+  --   vim.lsp.config('<server>', {})
+  --   vim.lsp.enable '<server>'
 
   {
     'akinsho/flutter-tools.nvim',
@@ -41,9 +41,7 @@ return {
     keys = {
       { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
-    config = function()
-      require('telescope').load_extension 'lazygit'
-    end,
+    config = function() require('telescope').load_extension 'lazygit' end,
   },
   {
     'mikavilpas/yazi.nvim',
@@ -112,33 +110,19 @@ return {
         },
       }
 
-      vim.keymap.set('n', '<leader>tr', function()
-        require('neotest').run.run()
-      end, { desc = 'Run closest test' })
+      vim.keymap.set('n', '<leader>tr', function() require('neotest').run.run() end, { desc = 'Run closest test' })
 
-      vim.keymap.set('n', '<leader>td', function()
-        require('neotest').run.run { strategy = 'dap' }
-      end, { desc = 'Debug closest test' })
+      vim.keymap.set('n', '<leader>td', function() require('neotest').run.run { strategy = 'dap' } end, { desc = 'Debug closest test' })
 
-      vim.keymap.set('n', '<leader>ta', function()
-        require('neotest').run.run { suite = true }
-      end, { desc = 'Run all tests' })
+      vim.keymap.set('n', '<leader>ta', function() require('neotest').run.run { suite = true } end, { desc = 'Run all tests' })
 
-      vim.keymap.set('n', '<leader>to', function()
-        require('neotest').output.open { enter = true }
-      end, { desc = 'Open test output' })
+      vim.keymap.set('n', '<leader>to', function() require('neotest').output.open { enter = true } end, { desc = 'Open test output' })
 
-      vim.keymap.set('n', '<leader>top', function()
-        require('neotest').output_panel.toggle()
-      end, { desc = 'Toggle test output panel' })
+      vim.keymap.set('n', '<leader>top', function() require('neotest').output_panel.toggle() end, { desc = 'Toggle test output panel' })
 
-      vim.keymap.set('n', '<leader>tw', function()
-        require('neotest').watch.toggle()
-      end, { desc = 'Toggle test watcher' })
+      vim.keymap.set('n', '<leader>tw', function() require('neotest').watch.toggle() end, { desc = 'Toggle test watcher' })
 
-      vim.keymap.set('n', '<leader>ts', function()
-        require('neotest').summary.toggle()
-      end, { desc = 'Toggle test summary' })
+      vim.keymap.set('n', '<leader>ts', function() require('neotest').summary.toggle() end, { desc = 'Toggle test summary' })
     end,
   },
 }
